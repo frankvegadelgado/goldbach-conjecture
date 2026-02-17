@@ -34,10 +34,12 @@ Our proof combines three elements:
 
 ### Key Innovation: The Gap Function $G(N)$  
 
-The critical quantity in our analysis is the gap function  
+The critical quantity in our analysis is the gap function 
+
 $$  
 G(N) = \log^2(2N) - \bigl((N-3) - |D_N|\bigr),  
-$$  
+$$
+
 which measures how far we are from a potential counterexample. The condition $G(N) > 0$ is equivalent to having "enough" valid $M$-values, which by the pigeonhole principle ensures the existence of a Goldbach partition. Our main theoretical contribution is proving $G(N) > 0$ for all $N \geq 3275$ using Dusart's refinement on prime density.  
 
 ### Structure of the Paper  
@@ -47,14 +49,17 @@ Section 2 develops the geometric framework. Section 3 introduces the set $D_N$ a
 ---  
 
 ## 2. Geometric Construction  
+
 We now develop the geometric reformulation that underlies our proof.  
 
 ### Basic Setup  
 
 Consider a square $S_N$ with integer side length $N \geq 4$, having area $N^2$. Inside $S_N$, inscribe a smaller square $S_M$ with side length $M$, where $1 \leq M \leq N-3$, sharing the bottom-left corner with $S_N$. The region between $S_N$ and $S_M$ forms an L-shaped annulus with area  
+
 $$  
 N^2 - M^2 = (N - M)(N + M).  
 $$  
+
 Define $P = N - M$ and $Q = N + M$. The bounds on $M$ translate to constraints on $P$ and $Q$:  
 - $M \geq 1 \implies P = N - M \leq N - 1$ and $Q = N + M \geq N + 1$  
 - $M \leq N - 3 \implies P = N - M \geq 3$  
@@ -63,12 +68,14 @@ Thus $3 \leq P \leq N-1$, $Q \geq N+1$, and clearly $P < Q$ (since $M \geq 1$).
 ### Connection to Goldbach Partitions  
 
 The sum and difference of $P$ and $Q$ are:  
+
 $$  
 \begin{align*}  
 P + Q &= (N - M) + (N + M) = 2N \geq 8, \\  
 Q - P &= (N + M) - (N - M) = 2M.  
 \end{align*}  
 $$  
+
 Since both the sum and difference are even, $P$ and $Q$ have the same parity. For both to be prime with $P \geq 3$, they must both be odd primes, hence distinct.  
 The area $N^2 - M^2 = P \cdot Q$ is a semiprime (product of exactly two primes) if and only if both $P$ and $Q$ are prime.  
 
@@ -108,9 +115,11 @@ The Goldbach variant holds for $N$ if and only if $C_N \cap D_N \neq \emptyset$.
 ### Definition of $D_N$  
 
 For a given $N \geq 4$, we define $D_N$ to be the set of all integers $M$ that arise as half-differences of straddling prime pairs:  
+
 $$  
 D_N = \left\{ M = \frac{Q - P}{2} \;\bigg|\; 2 < P < N < Q < 2N, \text{ and } P, Q \text{ are prime} \right\}.  
 $$  
+
 Note that:  
 - We require $P > 2$ (so $P \geq 3$) and $P < N < Q < 2N$.  
 - For $M \in D_N$, we have $M = (Q-P)/2 \in [1, N-3]$ since $Q - P \geq 2$ (distinct odd primes) and $Q < 2N, P > 2$ imply $Q - P < 2N - 3$.  
@@ -119,13 +128,17 @@ Note that:
 ### The Gap Function  
 
 Define the **gap function**:  
+
 $$  
 G(N) = \log^2(2N) - \bigl((N-3) - |D_N|\bigr).  
 $$  
+
 Rearranging, $G(N) > 0$ is equivalent to  
+
 $$  
 |D_N| > (N-3) - \log^2(2N).  
 $$  
+
 Intuitively, $G(N) > 0$ means that the set $D_N$ is "almost full"--most $M \in [1, N-3]$ appear in $D_N$, with fewer than $\log^2(2N)$ values missing.  
 
 ### Computational Results  
@@ -160,6 +173,7 @@ Our computational findings motivate the following theoretical results, which we 
 **Theorem 2 (Positivity of $G(N)$ for Large $N$).** For every integer $N \geq 3275$, we have $G(N) > 0$.  
 
 **Corollary 1 (Lower Bound on $|D_N|$).** For all $N \geq 3275$,  
+
 $$  
 |D_N| > (N-3) - \log^2(2N).  
 $$  
@@ -178,9 +192,11 @@ We now prove our main theoretical results.
 ### Proof of Theorem 2: $G(N) > 0$ for $N \geq 3275$  
 
 **Proof.** Recall that  
+
 $$  
 G(N) = \log^2(2N) - \bigl((N-3) - |D_N|\bigr),  
 $$  
+
 so $G(N) > 0$ is equivalent to $|D_N| > (N-3) - \log^2(2N)$. We establish a lower bound on $|D_N|$ using properties of prime distribution.  
 
 #### Step 1: Growth mechanism of $|D_N|$  
@@ -191,9 +207,11 @@ Different pairs can yield the same $M$ (collision), but the key point is that as
 #### Step 2: Prime density from Dusart's theorem  
 
 Dusart's refinement [[Dus98]](#References) states that for $n \geq 3275$, there exists a prime in every interval of length $n/(2\log^2 n)$. Consequently, the interval $(N, 2N)$ contains at least  
+
 $$  
 \frac{N}{N/(2\log^2 N)} = 2\log^2 N  
 $$  
+
 primes $Q$.  
 By the Prime Number Theorem, $\pi(2N) - \pi(N) \sim N/\log N$, a much stronger result, but Dusart's bound suffices for our purposes and holds rigorously for $N \geq 3275$.  
 
@@ -208,9 +226,11 @@ Given the density of primes guaranteed by Dusart's theorem, for each $m$ there a
 While this heuristic argument is not rigorous, Dusart's theorem ensures sufficient regularity in the prime distribution for $N \geq 3275$ that the number of missing $M$-values is bounded by $O(\log^2 N)$.  
 More precisely, a conservative application of Bertrand-type results and sieve theory bounds shows that for $N \geq 3275$, the number of $m \in \{1, \ldots, N-3\}$ such that no prime pair $(P, P+2m)$ exists with $P < N$ and $P + 2m < 2N$ is at most $C \log^2 N$ for some constant $C < 1$ (implicit in Dusart's work).  
 Therefore,  
+
 $$  
 (N-3) - |D_N| < \log^2(2N)  
 $$  
+
 for $N \geq 3275$, which is exactly $G(N) > 0$.  
 
 **Remark.** The threshold $N = 3275$ comes directly from Dusart's refinement. The key insight is that Dusart's guarantee of primes in short intervals ensures that $D_N$ is populated densely enough that $(N-3) - |D_N|$ grows much slower than $\log^2(2N)$.  
@@ -218,29 +238,37 @@ for $N \geq 3275$, which is exactly $G(N) > 0$.
 ### Proof of Theorem 3: The Variant Goldbach Conjecture  
 
 **Proof.** By Theorem 1, it suffices to show that for every $N \geq 4$, there exists $M \in [1, N-3]$ such that both $P = N - M$ and $Q = N + M$ are prime. Equivalently, we need $C_N \cap D_N \neq \emptyset$, where  
+
 $$  
 \begin{align*}  
 C_N &= \{N - p \mid 3 \leq p < N, \text{ } p \text{ prime}\}, \\  
 D_N &= \{(Q-P)/2 \mid 2 < P < N < Q < 2N, \text{ both prime}\}.  
 \end{align*}  
 $$  
+
 We prove this in three cases.  
 
 #### Case 1: $N \geq 3275$  
 
 By Corollary 1,  
+
 $$  
 |D_N| > (N-3) - \log^2(2N).  
 $$  
+
 The number of "bad" $M$-values (those in $\{1, \ldots, N-3\}$ but not in $D_N$) is therefore fewer than $\log^2(2N)$.  
 The candidate set $C_N$ has cardinality $|C_N| = \pi(N-1) - 1$ (we exclude $p=2$). By known lower bounds on $\pi(N)$ [[Dus98]](#References),  
+
 $$  
 \pi(N) > \frac{N}{\log N + 2} \quad \text{for } N \geq 6.  
 $$  
+
 For $N \geq 3275$, we have  
+
 $$  
 \frac{N}{\log N + 2} > \log^2(2N).  
 $$  
+
 (This can be verified numerically at $N = 3275$, and the inequality strengthens for larger $N$ since the left side grows like $N/\log N$ while the right side grows like $\log^2 N$.)  
 Therefore, $|C_N| > \log^2(2N)$, which is strictly greater than the number of bad $M$-values. By the pigeonhole principle [[Rit14]](#References), at least one element of $C_N$ must lie in $D_N$, i.e., $C_N \cap D_N \neq \emptyset$.  
 This establishes the conjecture for $N \geq 3275$.  
