@@ -276,15 +276,15 @@ This establishes the conjecture for $N \geq 3275$.
 #### Case 2: $4 \leq N \leq 12$ (Base Cases)  
 
 We verify these manually:  
-- **$N=4$** ($2N=8$): $C_4 = \\{1\\}$ (from $P=3$). $D_4 = \\{1, 2\\}$ (from pairs $(3,5)$ and $(3,7) $). Intersection: $\\{1\\}$. Partition: $8 = 3+5$. \checkmark  
-- **$N=5$** ($2N=10$): $C_5 = \\{2\\}$ (from $P=3$). $D_5 = \\{2\\}$ (from $(3,7) $). Intersection: $\\{2\\}$. Partition: $10 = 3+7$. \checkmark  
-- **$N=6$** ($2N=12$): $C_6 = \\{3,1\\}$ (from $P \in \\{3,5\\}$). $D_6 = \\{1,2,3,4\\}$. Intersection: $\\{1,3\\}$. Partition: $12 = 5+7$. \checkmark  
-- **$N=7$** ($2N=14$): $C_7 = \\{4,2\\}$. $D_7 = \\{3,4,5\\}$. Intersection: $\\{4\\}$. Partition: $14 = 3+11$. \checkmark  
-- **$N=8$** ($2N=16$): $C_8 = \\{5,3,1\\}$. $D_8 = \\{2,3,4,5\\}$. Intersection: $\\{3,5\\}$. Partition: $16 = 3+13$. \checkmark  
-- **$N=9$** ($2N=18$): $C_9 = \\{6,4,2\\}$. $D_9 = \\{2,4\\}$. Intersection: $\\{2,4\\}$. Partition: $18 = 5+13$. \checkmark  
-- **$N=10$** ($2N=20$): $C_{10} = \\{7,5,3\\}$. $D_{10} = \\{3,7\\}$. Intersection: $\\{3,7\\}$. Partition: $20 = 3+17$. \checkmark  
-- **$N=11$** ($2N=22$): $C_{11} = \\{8,6,4\\}$. $D_{11} = \\{6,8\\}$. Intersection: $\\{6,8\\}$. Partition: $22 = 3+19$. \checkmark  
-- **$N=12$** ($2N=24$): $C_{12} = \\{9,7,5,1\\}$. $D_{12} = \\{1,5,7\\}$. Intersection: $\\{1,5,7\\}$. Partition: $24 = 5+19$. \checkmark  
+- **$N=4$** ($2N=8$): $C_4 = \\{1\\}$ (from $P=3$). $D_4 = \\{1, 2\\}$ (from pairs $(3,5)$ and $(3,7) $). Intersection: $\\{1\\}$. Partition: $8 = 3+5$. $\checkmark$  
+- **$N=5$** ($2N=10$): $C_5 = \\{2\\}$ (from $P=3$). $D_5 = \\{2\\}$ (from $(3,7) $). Intersection: $\\{2\\}$. Partition: $10 = 3+7$. $\checkmark$  
+- **$N=6$** ($2N=12$): $C_6 = \\{3,1\\}$ (from $P \in \\{3,5\\}$). $D_6 = \\{1,2,3,4\\}$. Intersection: $\\{1,3\\}$. Partition: $12 = 5+7$. $\checkmark$  
+- **$N=7$** ($2N=14$): $C_7 = \\{4,2\\}$. $D_7 = \\{3,4,5\\}$. Intersection: $\\{4\\}$. Partition: $14 = 3+11$. $\checkmark$  
+- **$N=8$** ($2N=16$): $C_8 = \\{5,3,1\\}$. $D_8 = \\{2,3,4,5\\}$. Intersection: $\\{3,5\\}$. Partition: $16 = 3+13$. $\checkmark$  
+- **$N=9$** ($2N=18$): $C_9 = \\{6,4,2\\}$. $D_9 = \\{2,4\\}$. Intersection: $\\{2,4\\}$. Partition: $18 = 5+13$. $\checkmark$  
+- **$N=10$** ($2N=20$): $C_{10} = \\{7,5,3\\}$. $D_{10} = \\{3,7\\}$. Intersection: $\\{3,7\\}$. Partition: $20 = 3+17$. $\checkmark$  
+- **$N=11$** ($2N=22$): $C_{11} = \\{8,6,4\\}$. $D_{11} = \\{6,8\\}$. Intersection: $\\{6,8\\}$. Partition: $22 = 3+19$. $\checkmark$  
+- **$N=12$** ($2N=24$): $C_{12} = \\{9,7,5,1\\}$. $D_{12} = \\{1,5,7\\}$. Intersection: $\\{1,5,7\\}$. Partition: $24 = 5+19$. $\checkmark$  
 All base cases hold.  
 
 #### Case 3: $13 \leq N \leq 3274$  
