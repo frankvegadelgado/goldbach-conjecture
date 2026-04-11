@@ -23,7 +23,7 @@ The Goldbach conjecture, proposed in 1742, asserts that every even integer great
 
 Our variant requires the two primes to be distinct, thus excluding the trivial representations $4 = 2 + 2$ and $6 = 3 + 3$. This restriction is not merely technical-it emerges naturally from a geometric reformulation that provides the key to our proof. Specifically, we show that for $N \geq 4$ (so $2N \geq 8$), finding a Goldbach partition with distinct primes is equivalent to finding nested squares whose L-shaped difference region has a semiprime area.
 
-The framework combines three elements. First, a *geometric equivalence* (Section 3) establishes that the variant Goldbach conjecture is equivalent to a statement about nested squares: for every $N \geq 4$, there exists $M \in [1, N-3]$ such that $N^2 - M^2 = P \cdot Q$ where $P = N - M$ and $Q = N + M$ are both prime. Second, a *density analysis for large $N$* (Section 5) uses Dusart's thesis [[Dus98]](#references) to rigorously bound the density of $D_N$, and formulates the remaining density estimate as the *Density Hypothesis* (Hypothesis 1), supported by extensive computation. Third, *finite verification* (Section 5) confirms the conjecture computationally for $4 \leq N \leq 3274$, and we prove that the Density Hypothesis implies the full result via the pigeonhole principle.
+The framework combines three elements. First, a *geometric equivalence* (Section 3) establishes that the variant Goldbach conjecture is equivalent to a statement about nested squares: for every $N \geq 4$, there exists $M \in [1, N-3]$ such that $N^2 - M^2 = P \cdot Q$ where $P = N - M$ and $Q = N + M$ are both prime. Second, a *density analysis for large* $N$ (Section 5) uses Dusart's thesis [[Dus98]](#references) to rigorously bound the density of $D_N$, and formulates the remaining density estimate as the *Density Hypothesis* (Hypothesis 1), supported by extensive computation. Third, *finite verification* (Section 5) confirms the conjecture computationally for $4 \leq N \leq 3274$, and we prove that the Density Hypothesis implies the full result via the pigeonhole principle.
 
 The critical quantity in our analysis is the gap function
 
@@ -138,7 +138,7 @@ For each $N \geq 4$, define two subsets of $\\{1, 2, \ldots, N-3\\}$:
 
 For the reverse direction, if $2N = P + Q$ with $3 \leq P < Q$ both prime, then $M = (Q - P)/2$ satisfies $M \in C_N$ (since $P = N - M$) and $M \in D_N$ (since $(P, Q)$ is a straddling pair).
 
-**Lemma 1 (Key Implication from Intersection).** *Let $M \in C_N \cap D_N$. Then $P = N-M$ and $Q = N+M$ are both prime, so $2N = P+Q$ is a Goldbach partition into distinct primes.*
+**Lemma 1 (Key Implication from Intersection).** *Let* $M \in C_N \cap D_N$*. Then* $P = N-M$ *and* $Q = N+M$ *are both prime, so* $2N = P+Q$ *is a Goldbach partition into distinct primes.*
 
 **Proof.** By definition of $C_N$, the number $P = N-M$ is an odd prime less than $N$. By definition of $D_N$ (the admissible half-differences), there exists at least one pair of primes $(P', Q')$ with $2 < P' < N < Q' < 2N$ and $(Q'-P')/2 = M$. The difference is exactly $2M$, and $Q = N+M$ satisfies $N < Q < 2N$ (since $1 \leq M \leq N-3$). Because the geometric construction (Theorem 1) equates the existence of such an $M$ with the semiprime-area condition for the *specific* pair $(N-M, N+M)$, and the intersection ensures both the candidate prime $P = N-M$ and the existence of a straddling pair with the precise half-difference $M$, condition (ii) of Theorem 1 holds. Therefore $Q = N+M$ is prime and $2N = P+Q$ is the desired partition.
 
@@ -156,9 +156,9 @@ Here $(N-3) - |D_N|$ counts the $M$-values *missing* from $D_N$. The condition $
 
 We now state the main theoretical results, whose proofs are given in Section 5.
 
-**Hypothesis 1 (Density Hypothesis: Positivity of $G(N)$ for Large $N$).** *For every integer $N \geq 3275$, we have $G(N) > 0$.*
+**Hypothesis 1 (Density Hypothesis: Positivity of $G(N)$ for Large $N$).** *For every integer* $N \geq 3275$*, we have* $G(N) > 0$.
 
-**Corollary 1 (Conditional Lower Bound on $|D_N|$).** *If Hypothesis 1 holds, then for all $N \geq 3275$,*
+**Corollary 1 (Conditional Lower Bound on $|D_N|$).** *If Hypothesis 1 holds, then for all* $N \geq 3275$,
 
 $$
 |D_N| > (N-3) - \log^2(2N).
@@ -166,7 +166,7 @@ $$
 
 **Proof of Corollary 1.** Immediate from Hypothesis 1, since $G(N) > 0$ is equivalent to $|D_N| > (N-3) - \log^2(2N)$.
 
-**Theorem 3 (Conditional Main Result).** *If Hypothesis 1 holds, then every even integer $2N \geq 8$ is the sum of two distinct primes.*
+**Theorem 3 (Conditional Main Result).** *If Hypothesis 1 holds, then every even integer* $2N \geq 8$ *is the sum of two distinct primes.*
 
 ---  
 
@@ -296,8 +296,8 @@ For $N \geq 3275$, we have $|C_N| \geq N/(\ln N + 2) > \log^2(2N)$, since the le
 #### Case 2: $4 \leq N \leq 12$ (Base Cases)
 
 We verify these manually (all $M$-values listed for $D_N$ are restricted to $[1, N-3]$):  
-- **$N=4$** ($2N=8$): $C_4 = \\{1\\}$ (from $P=3$). $D_4 = \\{1\\}$ (from pair $(3,5)$). Intersection: $\\{1\\}$. Partition: $8 = 3+5$. $\checkmark$  
-- **$N=5$** ($2N=10$): $C_5 = \\{2\\}$ (from $P=3$). $D_5 = \\{2\\}$ (from $(3,7)$). Intersection: $\\{2\\}$. Partition: $10 = 3+7$. $\checkmark$  
+- **$N=4$** ($2N=8$): $C_4 = \\{1\\}$ (from $P=3$). $D_4 = \\{1\\}$ (from pair $(3,5) $). Intersection: $\\{1\\}$. Partition: $8 = 3+5$. $\checkmark$  
+- **$N=5$** ($2N=10$): $C_5 = \\{2\\}$ (from $P=3$). $D_5 = \\{2\\}$ (from $(3,7) $). Intersection: $\\{2\\}$. Partition: $10 = 3+7$. $\checkmark$  
 - **$N=6$** ($2N=12$): $C_6 = \\{3,1\\}$ (from $P \in \\{3,5\\}$). $D_6 = \\{1,2,3\\}$ ($M=4$ excluded as $>3$). Intersection: $\\{1,3\\}$. Partition: $12 = 5+7$. $\checkmark$  
 - **$N=7$** ($2N=14$): $C_7 = \\{4,2\\}$. $D_7 = \\{3,4\\}$ ($M=5$ excluded as $>4$). Intersection: $\\{4\\}$. Partition: $14 = 3+11$. $\checkmark$  
 - **$N=8$** ($2N=16$): $C_8 = \\{5,3,1\\}$. $D_8 = \\{2,3,4,5\\}$. Intersection: $\\{3,5\\}$. Partition: $16 = 3+13$. $\checkmark$  
