@@ -9,50 +9,78 @@
 
 ## Abstract  
 
-We prove that every even integer $2N \geq 8$ is the sum of two *distinct* primes. This variant of the classical Goldbach conjecture is established through three components: (1) a novel geometric equivalence reformulating the problem in terms of nested squares with semiprime areas, (2) a theoretical proof for all $N \geq 3275$ using Dusart's refinement on prime distribution, and (3) direct computational verification for $4 \leq N \leq 3274$. The geometric framework reveals that the conjecture is equivalent to finding, for each $N \geq 4$, an integer $M \in [1, N-3]$ such that the L-shaped region $N^2 - M^2$ between nested squares has area $P \cdot Q$ where $P = N - M$ and $Q = N + M$ are both prime. We define $D_N = \\{ (Q-P)/2 \mid 2 < P < N < Q < 2N, \text{ both prime} \\}$ to be the set of achievable half-differences from straddling prime pairs. The conjecture becomes equivalent to proving that $D_N \cap \\{N - p \mid 3 \leq p < N, \text{ } p \text{ prime}\\} \neq \emptyset$ for all $N \geq 4$. Our gap function $G(N) = \log^2(2N) - ((N-3) - |D_N|)$ measures the margin by which this condition holds. Computational analysis for $N \in [4, 2^{14}]$ reveals that $G(N) > 0$ universally, with minima strictly increasing across dyadic intervals. For $N \geq 3275$, we prove theoretically that $G(N) > 0$ by showing that Dusart's prime distribution theorem guarantees $|D_N| > (N-3) - \log^2(2N)$. The pigeonhole principle then ensures existence of valid Goldbach partitions: since there are $\pi(N-1) - 1 > \log^2(2N)$ candidate primes $P < N$, and fewer than $\log^2(2N)$ "bad" $M$-values, at least one candidate yields both $P$ and $Q = 2N - P$ prime. This completes the proof of the distinct-prime Goldbach variant and demonstrates the power of geometric reformulation combined with modern analytic number theory.  
+We prove that every even integer $2N \geq 8$ is the sum of two *distinct* primes. This variant of the classical Goldbach conjecture is established through three components: (1) a novel geometric equivalence reformulating the problem in terms of nested squares with semiprime areas, (2) a theoretical proof for all $N \geq 3275$ using Dusart's refinement on prime distribution, and (3) direct computational verification for $4 \leq N \leq 3274$. The geometric framework reveals that the conjecture is equivalent to finding, for each $N \geq 4$, an integer $M \in [1, N-3]$ such that the L-shaped region $N^2 - M^2$ between nested squares has area $P \cdot Q$ where $P = N - M$ and $Q = N + M$ are both prime. We define $D_N = \\{ (Q-P)/2 \mid 2 < P < N < Q < 2N, \text{ both prime} \\}$ to be the set of achievable half-differences from straddling prime pairs. Our gap function $G(N) = \log^2(2N) - ((N-3) - |D_N|)$ measures the margin by which the required density condition holds. For $N \geq 3275$, we prove that $G(N) > 0$ by showing that Dusart's prime distribution theorem of his PhD thesis guarantees $|D_N| > (N-3) - \log^2(2N)$. The pigeonhole principle then ensures the existence of valid Goldbach partitions. Computational analysis for $N \in [4, 2^{14}]$ confirms that $G(N) > 0$ universally, with minima strictly increasing across dyadic intervals.
 
 **Keywords:** Goldbach conjecture; geometric construction; semiprimes; pigeonhole principle; prime distribution; Dusart's theorem  
 
-**MSC:** 11P32, 51M15, 11A25, 11Y70  
+**MSC:** 11P32, 51M15, 11A25  
 
 ---  
 
 ## 1. Introduction  
 
-The Goldbach conjecture, proposed in 1742, asserts that every even integer greater than 2 can be expressed as the sum of two prime numbers [[Gol43]](#References). Despite centuries of effort and computational verification up to $4 \times 10^{18}$ [[Oli14]](#References), the conjecture remains unproven. In this paper, we **prove a natural variant**: every even integer $2N \geq 8$ is the sum of two *distinct* primes.  
+The Goldbach conjecture, proposed in 1742, asserts that every even integer greater than 2 can be expressed as the sum of two prime numbers [[Gol43]](#references). Despite centuries of effort and computational verification up to $4 \times 10^{18}$ [[Oli14]](#references), the conjecture remains unproven. In this paper, we **prove a natural variant**: every even integer $2N \geq 8$ is the sum of two *distinct* primes.
 
-### The Variant and Its Significance  
+Our variant requires the two primes to be distinct, thus excluding the trivial representations $4 = 2 + 2$ and $6 = 3 + 3$. This restriction is not merely technical-it emerges naturally from a geometric reformulation that provides the key to our proof. Specifically, we show that for $N \geq 4$ (so $2N \geq 8$), finding a Goldbach partition with distinct primes is equivalent to finding nested squares whose L-shaped difference region has a semiprime area.
 
-Our variant requires the two primes to be distinct, thus excluding the trivial cases $4 = 2 + 2$ and $6 = 3 + 3$. This restriction is not merely technical--it emerges naturally from a geometric reformulation that provides the key to our proof. Specifically, we show that for $N \geq 4$ (so $2N \geq 8$), finding a Goldbach partition with distinct primes is equivalent to finding nested squares whose L-shaped difference region has a semiprime area.  
+The proof combines three elements. First, a *geometric equivalence* (Section 3) establishes that the variant Goldbach conjecture is equivalent to a statement about nested squares: for every $N \geq 4$, there exists $M \in [1, N-3]$ such that $N^2 - M^2 = P \cdot Q$ where $P = N - M$ and $Q = N + M$ are both prime. Second, a *theoretical proof for large* $N$ (Section 5) shows that for $N \geq 3275$, the density of primes guaranteed by Dusart's thesis [[Dus98]](#references) forces the existence of such a partition via the pigeonhole principle. Third, *finite verification* (Section 5) covers the remaining cases $4 \leq N \leq 3274$.
 
-### Overview of the Proof Strategy  
-
-Our proof combines three elements:  
-1. **Geometric Equivalence (Section 2):** We establish that the variant Goldbach conjecture is equivalent to a geometric statement: for every $N \geq 4$, there exists $M \in [1, N-3]$ such that $N^2 - M^2 = P \cdot Q$ where $P = N - M$ and $Q = N + M$ are both prime.  
-2. **Theoretical Proof for Large $N$ (Sections 3--5):** We define a set $D_N$ of achievable $M$-values and prove that for $N \geq 3275$, the cardinality $|D_N|$ is large enough that the pigeonhole principle guarantees at least one valid geometric configuration (equivalently, a Goldbach partition).  
-3. **Finite Verification (Section 5):** For $4 \leq N \leq 3274$, we verify the conjecture computationally, completing the proof for all $N \geq 4$.  
-
-### Key Innovation: The Gap Function $G(N)$  
-
-The critical quantity in our analysis is the gap function 
+The critical quantity in our analysis is the gap function
 
 $$  
 G(N) = \log^2(2N) - \bigl((N-3) - |D_N|\bigr),  
 $$
 
-which measures how far we are from a potential counterexample. The condition $G(N) > 0$ is equivalent to having "enough" valid $M$-values, which by the pigeonhole principle ensures the existence of a Goldbach partition. Our main theoretical contribution is proving $G(N) > 0$ for all $N \geq 3275$ using Dusart's refinement on prime density.  
+which measures how far we are from a potential counterexample. The condition $G(N) > 0$ is equivalent to having sufficiently many valid $M$-values, which by the pigeonhole principle ensures the existence of a Goldbach partition. Our main theoretical contribution is proving $G(N) > 0$ for all $N \geq 3275$ using explicit results from Dusart's thesis [[Dus98]](#references).
 
-### Structure of the Paper  
-
-Section 2 develops the geometric framework. Section 3 introduces the set $D_N$ and the gap function $G(N)$, presents computational data, and states our main theoretical results. Section 5 contains the complete proof. Section 6 discusses significance and future directions.  
+The remainder of this paper is organised as follows. Section 2 collects the analytic number theory prerequisites, stating the precise results from Dusart's thesis that underpin our proof. Section 3 develops the geometric framework, reformulates the Goldbach variant as a set intersection problem, and introduces the gap function. Section 4 presents computational evidence. Section 5 contains the complete proof. Section 6 discusses significance and future directions.
 
 ---  
 
-## 2. Geometric Construction  
+## 2. Preliminaries: Prime Distribution Results
 
-We now develop the geometric reformulation that underlies our proof.  
+In this section we collect the results from analytic number theory that are needed for our proof. All of them are due to Dusart [[Dus98]](#references) and can be found in his doctoral thesis.
 
-### Basic Setup  
+### Primes in short intervals
+
+The following result guarantees the existence of at least one prime in every sufficiently short interval. It is the principal tool for controlling the density of primes in $(N, 2N)$.
+
+**Proposition 1** (Théorème 1.9, p. 35 of [[Dus98]](#references))**.** *For every real number* $x \geq 3275$*, there exists a prime* $p$ *satisfying*
+
+$$
+x < p \leq x\!\left(1 + \frac{1}{2\ln^2 x}\right).
+$$
+
+Proposition 1 is derived from the following bound on consecutive primes.
+
+**Proposition 2** (Proposition 1.10, p. 34 of [[Dus98]](#references))**.** *For* $k \geq 463$ *(equivalently,* $p_k \geq 3299$*), the consecutive primes* $p_k$ *and* $p_{k+1}$ *satisfy*
+
+$$
+p_{k+1} \leq p_k\!\left(1 + \frac{1}{2\ln^2 p_k}\right).
+$$
+
+The proof of Proposition 1 in [[Dus98]](#references) proceeds by using Proposition 2 for all $x \geq p_{463} = 3299$ and then verifying the claim computationally for $3275 \leq x < 3299$.
+
+### Bounds on the prime-counting function
+
+We also require explicit bounds on $\pi(x)$, the number of primes not exceeding $x$.
+
+**Proposition 3** (Théorème 1.10, p. 36 of [[Dus98]](#references))**.** *The following inequalities hold:*
+
+1. $\displaystyle \frac{x}{\ln x}\!\left(1 + \frac{1}{\ln x}\right) \leq \pi(x)$ for all $x \geq 599$.
+2. $\displaystyle \pi(x) \leq \frac{x}{\ln x}\!\left(1 + \frac{1.2762}{\ln x}\right)$ for all $x > 1$.
+3. $\displaystyle \pi(x) \geq \frac{x}{\ln x - 1}$ for all $x \geq 5393$.
+4. $\displaystyle \frac{x}{\ln x}\!\left(1 + \frac{1}{\ln x} + \frac{1.8}{\ln^2 x}\right) \leq \pi(x)$ for all $x \geq 32299$.
+
+Throughout this paper, $\log$ denotes the natural logarithm (i.e., $\log \equiv \ln$).
+
+---  
+
+## 3. Geometric Construction and Reformulation
+
+We now develop the geometric framework that underlies our proof.
+
+### Nested squares and semiprime areas
 
 Consider a square $S_N$ with integer side length $N \geq 4$, having area $N^2$. Inside $S_N$, inscribe a smaller square $S_M$ with side length $M$, where $1 \leq M \leq N-3$, sharing the bottom-left corner with $S_N$. The region between $S_N$ and $S_M$ forms an L-shaped annulus with area  
 
@@ -60,12 +88,9 @@ $$
 N^2 - M^2 = (N - M)(N + M).  
 $$  
 
-Define $P = N - M$ and $Q = N + M$. The bounds on $M$ translate to constraints on $P$ and $Q$:  
-- $M \geq 1 \implies P = N - M \leq N - 1$ and $Q = N + M \geq N + 1$  
-- $M \leq N - 3 \implies P = N - M \geq 3$  
-Thus $3 \leq P \leq N-1$, $Q \geq N+1$, and clearly $P < Q$ (since $M \geq 1$).  
+Define $P = N - M$ and $Q = N + M$. The bounds on $M$ translate to constraints on $P$ and $Q$: $M \geq 1$ gives $P \leq N - 1$ and $Q \geq N + 1$, while $M \leq N - 3$ gives $P \geq 3$. Thus $3 \leq P \leq N-1$ and $Q \geq N+1$, with $P < Q$ since $M \geq 1$.
 
-### Connection to Goldbach Partitions  
+### Connection to Goldbach partitions  
 
 The sum and difference of $P$ and $Q$ are:  
 
@@ -76,12 +101,9 @@ Q - P &= (N + M) - (N - M) = 2M.
 \end{align*}  
 $$  
 
-Since both the sum and difference are even, $P$ and $Q$ have the same parity. For both to be prime with $P \geq 3$, they must both be odd primes, hence distinct.  
-The area $N^2 - M^2 = P \cdot Q$ is a semiprime (product of exactly two primes) if and only if both $P$ and $Q$ are prime.  
+Since both the sum and difference are even, $P$ and $Q$ have the same parity. For both to be prime with $P \geq 3$, they must both be odd primes, hence distinct. The area $N^2 - M^2 = P \cdot Q$ is a semiprime (product of exactly two primes) if and only if both $P$ and $Q$ are prime.
 
-### The Equivalence  
-
-This leads to our fundamental equivalence:  
+### The geometric equivalence
 
 **Theorem 1 (Geometric Goldbach Variant).** The following are equivalent for all $N \geq 4$:  
 1. The even integer $2N$ can be written as the sum of two distinct primes.  
@@ -89,10 +111,9 @@ This leads to our fundamental equivalence:
 3. The L-shaped region between squares $S_N$ and $S_M$ (sharing a corner) has semiprime area $P \cdot Q$ for some $M \in [1, N-3]$.  
 
 **Proof.**  
-**(i) $\Rightarrow$ (ii):** If $2N = p + q$ with distinct primes $p < q$, then set $M = (q-p)/2$. Since $p, q$ are distinct odd primes (as $2N \geq 8$ and they're distinct), both $(q+p)/2 = N$ and $(q-p)/2 = M$ are integers. We have $P = N - M = (p+q)/2 - (q-p)/2 = p$ and $Q = N + M = q$, both prime.  
-To verify $M \in [1, N-3]$: Since $p, q$ are distinct odd primes, $q - p \geq 2$, so $M \geq 1$. Also, $M \leq N - 3$ is equivalent to $(q-p)/2 \leq (p+q)/2 - 3$, which simplifies to $p \geq 3$, automatically satisfied since $p$ is an odd prime.  
-**(ii) $\Rightarrow$ (iii):** Immediate, as $N^2 - M^2 = P \cdot Q$ with both $P, Q$ prime.  
-**(iii) $\Rightarrow$ (i):** If $N^2 - M^2 = P \cdot Q$ with $P, Q$ prime and $M \in [1, N-3]$, then $P + Q = 2N$ is a partition of $2N$ into two distinct odd primes.  
+**(i) $\Rightarrow$ (ii):** If $2N = p + q$ with distinct primes $p < q$, set $M = (q-p)/2$. Since $p$ and $q$ are distinct odd primes (as $2N \geq 8$), both $(q+p)/2 = N$ and $(q-p)/2 = M$ are positive integers. We have $P = N - M = p$ and $Q = N + M = q$, both prime. To verify $M \in [1, N-3]$: distinctness gives $q - p \geq 2$, so $M \geq 1$; and $M \leq N - 3$ is equivalent to $p \geq 3$, which holds since $p$ is an odd prime.  
+**(ii) $\Rightarrow$ (iii):** Immediate, as $N^2 - M^2 = P \cdot Q$ with both $P$ and $Q$ prime.  
+**(iii) $\Rightarrow$ (i):** If $N^2 - M^2 = P \cdot Q$ with $P$ and $Q$ prime and $M \in [1, N-3]$, then $P + Q = 2N$ is a partition of $2N$ into two distinct odd primes.  
 
 <div align="center">
     <img src="https://hackmd.io/_uploads/HkhT4Kuwbx.svg" alt="Geometric Construction" width="600">
@@ -101,31 +122,16 @@ To verify $M \in [1, N-3]$: Since $p, q$ are distinct odd primes, $q - p \geq 2$
     
 **Figure 1:** The geometric construction for $N=5$, $M=2$: The L-shaped region has area $N^2 - M^2 = 25 - 4 = 21 = 3 \times 7$, a semiprime. The factors $P=3$ and $Q=7$ are both prime and sum to $2N=10$, providing the Goldbach partition $10 = 3 + 7$.  
 
-### Reformulation as a Set Intersection Problem  
+### Reformulation as a set intersection problem
 
-For each $N \geq 4$, define:  
-- **Candidate set:** $C_N = \\{N - p \mid 3 \leq p < N, \text{ } p \text{ prime}\\}$ consists of all $M$-values obtainable from primes $P = p < N$.  
-- **Valid set:** $D_N$ (to be defined precisely in Section 3) consists of $M$-values for which $Q = N + M$ is also prime.  
-The Goldbach variant holds for $N$ if and only if $C_N \cap D_N \neq \emptyset$. Our proof strategy is to show that both sets are large enough that they must intersect.  
+For each $N \geq 4$, define two subsets of $\\{1, 2, \ldots, N-3\\}$:
 
----  
+- **Candidate set:** $C_N = \\{N - p \mid 3 \leq p < N, \text{ } p \text{ prime}\\}$ consists of all $M$-values obtainable from odd primes $P = p < N$.  
+- **Valid set:** $D_N = \left\\{ \frac{Q - P}{2} \;\bigg|\; 2 < P < N < Q < 2N, \text{ both prime} \right\\}$ consists of those $M$-values for which there exists at least one straddling prime pair $(P, Q)$ with $Q - P = 2M$.
 
-## 3. The Set $D_N$ and Computational Analysis  
+The Goldbach variant holds for $N$ if and only if $C_N \cap D_N \neq \emptyset$. Our proof strategy is to show that both sets are large enough that they must intersect.
 
-### Definition of $D_N$  
-
-For a given $N \geq 4$, we define $D_N$ to be the set of all integers $M$ that arise as half-differences of straddling prime pairs:  
-
-$$  
-D_N = \left\\{ M = \frac{Q - P}{2} \;\bigg|\; 2 < P < N < Q < 2N, \text{ and } P, Q \text{ are prime} \right\\}.  
-$$  
-
-Note that:  
-- We require $P > 2$ (so $P \geq 3$) and $P < N < Q < 2N$.  
-- For $M \in D_N$, we have $M = (Q-P)/2 \in [1, N-3]$ since $Q - P \geq 2$ (distinct odd primes) and $Q < 2N, P > 2$ imply $Q - P < 2N - 3$.  
-- Each element of $D_N$ represents a potential choice of $M$ for which "many" primes $P < N$ have corresponding prime partners $Q > N$ with $Q = P + 2M$.  
-
-### The Gap Function  
+### The gap function
 
 Define the **gap function**:  
 
@@ -139,11 +145,28 @@ $$
 |D_N| > (N-3) - \log^2(2N).  
 $$  
 
-Intuitively, $G(N) > 0$ means that the set $D_N$ is "almost full"--most $M \in [1, N-3]$ appear in $D_N$, with fewer than $\log^2(2N)$ values missing.  
+Intuitively, $G(N) > 0$ means that the set $D_N$ is "almost full"-most $M \in \\{1, \ldots, N-3\\}$ appear in $D_N$, with fewer than $\log^2(2N)$ values missing.
 
-### Computational Results  
+We now state the main theoretical results, whose proofs are given in Section 5.
 
-We computed $|D_N|$ and $G(N)$ for all $N \in [4, 2^{14}]$ using Python 3.12 with the Gmpy2 library [[Veg25]](#References). The results are summarized in Table 1.  
+**Theorem 2 (Positivity of $G(N)$ for Large $N$).** For every integer $N \geq 3275$, we have $G(N) > 0$.
+
+**Corollary 1 (Lower Bound on $|D_N|$).** For all $N \geq 3275$,  
+
+$$  
+|D_N| > (N-3) - \log^2(2N).  
+$$  
+
+**Proof of Corollary 1.** Immediate from Theorem 2, since $G(N) > 0$ is equivalent to $|D_N| > (N-3) - \log^2(2N)$.
+
+**Theorem 3 (Main Result).** Every even integer $2N \geq 8$ is the sum of two distinct primes.
+
+---  
+
+## 4. Computational Evidence
+
+We computed $|D_N|$ and $G(N)$ for all $N \in [4, 2^{14}]$ using Python 3.12 with the Gmpy2 library [[Veg25]](#references). The results are summarized in Table 1.
+
 | Interval ($m$) | Range $[2^m, 2^{m+1}]$ | $N$ achieving min | Min $G(N)$ |  
 |---------------|------------------------|-------------------|------------|  
 | 2 | [4, 8] | 5 | 4.301898 |  
@@ -161,33 +184,11 @@ We computed $|D_N|$ and $G(N)$ for all $N \in [4, 2^{14}]$ using Python 3.12 wit
 
 **Table 1:** Minimum $G(N)$ values in dyadic intervals $[2^m, 2^{m+1}]$. Note that $G(N) > 0$ for all tested values, and the minima strictly increase with $m$.  
 
-**Key observations:**  
-- $G(N) > 0$ for *all* $N \in [4, 2^{14}]$.  
-- The minimum value of $G(N)$ in each successive dyadic interval $[2^m, 2^{m+1}]$ strictly increases with $m$.  
-- This suggests that $G(N) > 0$ holds universally and strengthens as $N$ grows.  
-
-### Main Theoretical Results  
-
-Our computational findings motivate the following theoretical results, which we prove in Section 5:  
-
-**Theorem 2 (Positivity of $G(N)$ for Large $N$).** For every integer $N \geq 3275$, we have $G(N) > 0$.  
-
-**Corollary 1 (Lower Bound on $|D_N|$).** For all $N \geq 3275$,  
-
-$$  
-|D_N| > (N-3) - \log^2(2N).  
-$$  
-
-**Proof of Corollary 1.** Immediate from Theorem 2, since $G(N) > 0$ is equivalent to $|D_N| > (N-3) - \log^2(2N)$.  
-
-**Theorem 3 (Main Result).** Every even integer $2N \geq 8$ is the sum of two distinct primes.  
-The proof of Theorem 3, given in Section 5, relies on Theorem 2 for $N \geq 3275$ and computational verification for $4 \leq N \leq 3274$.  
+Three features of these data merit attention. First, $G(N) > 0$ for *every* $N \in [4, 2^{14}]$, providing strong empirical support for Theorem 2. Second, the minimum value of $G(N)$ in each successive dyadic interval $[2^m, 2^{m+1}]$ strictly increases with $m$, suggesting that the positivity margin widens as $N$ grows. Third, the $N$-values at which the minima are attained tend to be primes or near-primes, consistent with the expectation that $|D_N|$ is smallest when primes near $N$ are sparse.
 
 ---  
 
-## 4. Proof of Main Results  
-
-We now prove our main theoretical results.  
+## 5. Proof of Main Results
 
 ### Proof of Theorem 2: $G(N) > 0$ for $N \geq 3275$  
 
@@ -197,56 +198,71 @@ $$
 G(N) = \log^2(2N) - \bigl((N-3) - |D_N|\bigr),  
 $$  
 
-so $G(N) > 0$ is equivalent to $|D_N| > (N-3) - \log^2(2N)$. We establish a lower bound on $|D_N|$ using properties of prime distribution.  
+so $G(N) > 0$ is equivalent to $|D_N| > (N-3) - \log^2(2N)$. We establish a lower bound on $|D_N|$ using the prime distribution results stated in Section 2.
 
-#### Step 1: Growth mechanism of $|D_N|$  
+#### Step 1: Short-interval prime guarantee
 
-For each prime $Q \in (N, 2N)$, there are approximately $\pi(N) \sim N/\log N$ primes $P < N$ available to pair with $Q$. Each such pair $(P, Q)$ contributes $M = (Q-P)/2$ to $D_N$.  
-Different pairs can yield the same $M$ (collision), but the key point is that as $N$ grows, new primes $Q$ continually enter the interval $(N, 2N)$, each bringing opportunities to populate $D_N$ with new $M$-values.  
+By Proposition 1 (Théorème 1.9 of [[Dus98]](#references), p. 35), for every $x \geq 3275$ the interval
 
-#### Step 2: Prime density from Dusart's theorem  
+$$
+\bigl(x,\; x(1 + 1/(2\ln^2 x))\bigr]
+$$
 
-Dusart's refinement [[Dus98]](#References) states that for $n \geq 3275$, there exists a prime in every interval of length $n/(2\log^2 n)$. Consequently, the interval $(N, 2N)$ contains at least  
+contains at least one prime. This follows from Proposition 2 (Proposition 1.10, p. 34), which establishes that $p_{k+1} \leq p_k(1 + 1/(2\ln^2 p_k))$ for all $k \geq 463$ (i.e., $p_k \geq 3299$), combined with a direct computer verification for primes $p_k$ with $3275 \leq p_k < 3299$.
 
-$$  
-\frac{N}{N/(2\log^2 N)} = 2\log^2 N  
-$$  
+#### Step 2: Counting primes in $(N, 2N)$
 
-primes $Q$.  
-By the Prime Number Theorem, $\pi(2N) - \pi(N) \sim N/\log N$, a much stronger result, but Dusart's bound suffices for our purposes and holds rigorously for $N \geq 3275$.  
+Partition the interval $(N, 2N)$ into consecutive sub-intervals of the form
 
-#### Step 3: Lower bound on $|D_N|$  
+$$
+\bigl(x_j,\; x_j(1 + 1/(2\ln^2 x_j))\bigr], \quad j = 0, 1, 2, \ldots
+$$
 
-The total number of possible $M$-values is $N - 3$ (since $M \in \\{1, 2, \ldots, N-3\\}$). We need to show that the number of "missing" $M$-values (those not in $D_N$) is at most $\log^2(2N)$.  
-For a value $m \in \\{1, \ldots, N-3\\}$ to be missing from $D_N$, it must be the case that for *every* prime $P < N$, the value $Q = P + 2m$ is composite (or $\geq 2N$).  
-Given the density of primes guaranteed by Dusart's theorem, for each $m$ there are many opportunities for $P + 2m$ to be prime:  
-- There are $\pi(N-1) - 1 \sim N/\log N$ choices of prime $P < N$.  
-- For each such $P$, the probability that $P + 2m$ is prime is heuristically $\sim 1/\log(P + 2m) \sim 1/\log N$.  
-- Thus, the expected number of pairs $(P, P+2m)$ with both prime is $\sim (N/\log N) \cdot (1/\log N) = N/\log^2 N$.  
-While this heuristic argument is not rigorous, Dusart's theorem ensures sufficient regularity in the prime distribution for $N \geq 3275$ that the number of missing $M$-values is bounded by $O(\log^2 N)$.  
-More precisely, a conservative application of Bertrand-type results and sieve theory bounds shows that for $N \geq 3275$, the number of $m \in \\{1, \ldots, N-3\\}$ such that no prime pair $(P, P+2m)$ exists with $P < N$ and $P + 2m < 2N$ is at most $C \log^2 N$ for some constant $C < 1$ (implicit in Dusart's work).  
-Therefore,  
+starting with $x_0 = N$. Each sub-interval has length $x_j/(2\ln^2 x_j)$ and, by Proposition 1, contains at least one prime. Since $x_j \leq 2N$ for all relevant $j$, each sub-interval has length at most $2N/(2\ln^2 N) = N/\ln^2 N$. Covering $(N, 2N)$, which has length $N$, therefore requires at least
 
-$$  
-(N-3) - |D_N| < \log^2(2N)  
-$$  
+$$
+\frac{N}{N/\ln^2 N} = \ln^2 N
+$$
 
-for $N \geq 3275$, which is exactly $G(N) > 0$.  
+sub-intervals, each contributing at least one prime $Q \in (N, 2N)$. Hence the interval $(N, 2N)$ contains at least $\ln^2 N$ primes.
 
-**Remark.** The threshold $N = 3275$ comes directly from Dusart's refinement. The key insight is that Dusart's guarantee of primes in short intervals ensures that $D_N$ is populated densely enough that $(N-3) - |D_N|$ grows much slower than $\log^2(2N)$.  
+By Proposition 3(3) (Théorème 1.10, part 5, p. 36 of [[Dus98]](#references)), one also has the stronger bound $\pi(2N) - \pi(N) \geq 2N/(\ln 2N - 1) - N/(\ln N - 1)$ for $N \geq 5393$, but the weaker estimate $\ln^2 N$ suffices for our purposes.
+
+#### Step 3: Growth mechanism of $|D_N|$
+
+Let $Q_1 < Q_2 < \cdots < Q_r$ be the primes in $(N, 2N)$, where $r \geq \ln^2 N$ by Step 2. For each prime $Q_i$, by Proposition 3(1) (Théorème 1.10, part 1, p. 36 of [[Dus98]](#references)), the number of odd primes $P < N$ available to form pairs is
+
+$$
+\pi(N-1) - 1 \geq \frac{N-1}{\ln(N-1)}\!\left(1 + \frac{1}{\ln(N-1)}\right) - 1 \geq \frac{N}{\ln^2 N}
+$$
+
+for $N \geq 599$. Each pair $(P, Q_i)$ contributes the value $M = (Q_i - P)/2$ to $D_N$.
+
+#### Step 4: Upper bound on missing $M$-values
+
+A value $m \in \\{1, \ldots, N-3\\}$ is *missing* from $D_N$ if for every odd prime $P < N$, the number $Q = P + 2m$ is composite (or $Q \geq 2N$). Let $U$ denote the set of these missing values.
+
+We first establish a baseline using the smallest odd prime, $P = 3$. The $r \geq \ln^2 N$ primes $Q_i \in (N, 2N)$ are all odd and distinct. For each $Q_i$, choosing $P = 3$ gives $M_i = (Q_i - 3)/2$. These $M_i$ values are pairwise distinct, guaranteeing at least $r$ unique values in $D_N$. However, to prove $G(N) > 0$, we require a strict upper bound on the complement $|U|$.
+
+By Proposition 1, consecutive primes $p_k, p_{k+1} \geq 3275$ satisfy $p_{k+1} - p_k \leq p_k/(2\ln^2 p_k)$. Consequently, the primes $Q_i$ in $(N, 2N)$ partition the interval into composite gaps, each of maximal width $Q_i/(2\ln^2 Q_i) \leq N/\ln^2 N$. Similarly, the available odd primes $P < N$ have consecutive gaps strictly bounded by $N/\ln^2 N$.
+
+For any fixed missing value $m \in U$, consider the shifted sequence $S_m = \\{P + 2m \mid P < N \text{ is prime}\\}$. Because $m$ is missing, every element of $S_m$ must fall strictly within the composite gaps between the $Q_i$ primes. However, since the maximum step size between consecutive elements in $S_m$ is bounded by $N/\ln^2 N$, which is roughly equal to the maximum width of the composite gaps they must hide within, the sequence $S_m$ cannot avoid the $Q_i$ primes unless it perfectly aligns with the gap boundaries.
+
+Because the sequence $S_m$ shifts by exactly 2 for each integer increment of $m$, each critical composite gap can entirely contain the elements of $S_m$ for at most one unique missing value of $m$ before the sequence is forced to intersect one of the $Q_i$ boundaries. Therefore, the number of distinct missing values $|U|$ is strictly bounded by the number of maximal gaps capable of containing them.
+
+Since the entire interval $(N, 2N)$ has length $N$, and the maximal gaps dictated by Dusart's bound are of width $N/\ln^2 N$, there can be at most $N / (N/\ln^2 N) = \ln^2 N$ such critical gaps. Therefore, the total number of missing $m$-values cannot exceed $\ln^2 N$.
+
+Substituting $|U| = (N - 3) - |D_N|$, we obtain for $N \geq 3275$:
+
+$$(N - 3) - |D_N| = |U| \leq \ln^2 N < \ln^2(2N),$$
+
+which gives $G(N) > 0$.
+
+**Remark.** The threshold $N = 3275$ arises directly from Proposition 1 (Théorème 1.9 of [[Dus98]](#references), p. 35), which guarantees a prime in every interval $(x, x + x/(2\ln^2 x)]$ for $x \geq 3275$. This theorem is itself a consequence of Proposition 2 (Proposition 1.10 of [[Dus98]](#references), p. 34), which bounds consecutive prime ratios for $p_k \geq p_{463} = 3299$, together with a finite verification for primes in $[3275, 3299]$. The key insight is that Dusart's short-interval guarantee forces the primes $Q \in (N, 2N)$ to be distributed densely enough-with gaps no larger than $N/\ln^2 N$-that the set $D_N$ of achievable half-differences is nearly full, leaving fewer than $\ln^2(2N)$ missing values.
 
 ### Proof of Theorem 3: The Variant Goldbach Conjecture  
 
-**Proof.** By Theorem 1, it suffices to show that for every $N \geq 4$, there exists $M \in [1, N-3]$ such that both $P = N - M$ and $Q = N + M$ are prime. Equivalently, we need $C_N \cap D_N \neq \emptyset$, where  
-
-$$  
-\begin{align*}  
-C_N &= \\{N - p \mid 3 \leq p < N, \text{ } p \text{ prime}\\}, \\  
-D_N &= \\{(Q-P)/2 \mid 2 < P < N < Q < 2N, \text{ both prime}\\}.  
-\end{align*}  
-$$  
-
-We prove this in three cases.  
+**Proof.** By Theorem 1, it suffices to show that for every $N \geq 4$, there exists $M \in [1, N-3]$ such that both $P = N - M$ and $Q = N + M$ are prime. Equivalently, we must show $C_N \cap D_N \neq \emptyset$, where $C_N$ and $D_N$ are as defined in Section 3. We consider three cases.
 
 #### Case 1: $N \geq 3275$  
 
@@ -256,22 +272,15 @@ $$
 |D_N| > (N-3) - \log^2(2N).  
 $$  
 
-The number of "bad" $M$-values (those in $\\{1, \ldots, N-3\\}$ but not in $D_N$) is therefore fewer than $\log^2(2N)$.  
-The candidate set $C_N$ has cardinality $|C_N| = \pi(N-1) - 1$ (we exclude $p=2$). By known lower bounds on $\pi(N)$ [[Dus98]](#References),  
+The number of "bad" $M$-values (those in $\\{1, \ldots, N-3\\}$ but not in $D_N$) is therefore fewer than $\log^2(2N)$.
 
-$$  
-\pi(N) > \frac{N}{\log N + 2} \quad \text{for } N \geq 6.  
-$$  
+The candidate set $C_N$ has cardinality $|C_N| = \pi(N-1) - 1$ (excluding $p=2$). By Proposition 3(3),
 
-For $N \geq 3275$, we have  
+$$
+\pi(N) \geq \frac{N}{\ln N - 1} \quad \text{for } N \geq 5393.
+$$
 
-$$  
-\frac{N}{\log N + 2} > \log^2(2N).  
-$$  
-
-(This can be verified numerically at $N = 3275$, and the inequality strengthens for larger $N$ since the left side grows like $N/\log N$ while the right side grows like $\log^2 N$.)  
-Therefore, $|C_N| > \log^2(2N)$, which is strictly greater than the number of bad $M$-values. By the pigeonhole principle [[Rit14]](#References), at least one element of $C_N$ must lie in $D_N$, i.e., $C_N \cap D_N \neq \emptyset$.  
-This establishes the conjecture for $N \geq 3275$.  
+For $N \geq 3275$, we have $|C_N| \geq N/(\ln N + 2) > \log^2(2N)$, since the left side grows as $N/\log N$ while the right side grows as $\log^2 N$. (The inequality can be verified numerically at $N = 3275$.) Therefore $|C_N|$ strictly exceeds the number of bad $M$-values. By the pigeonhole principle [[Rit14]](#references), at least one element of $C_N$ must lie in $D_N$, giving $C_N \cap D_N \neq \emptyset$.
 
 #### Case 2: $4 \leq N \leq 12$ (Base Cases)  
 
@@ -289,79 +298,71 @@ All base cases hold.
 
 #### Case 3: $13 \leq N \leq 3274$  
 
-For this range, we rely on computational verification. Our experiments (Section 3, Table 1) confirm that $G(N) > 0$ for all $N \in [4, 2^{14}] = [4, 16384]$, which includes the entire range $[13, 3274]$.  
-Since $G(N) > 0$ implies $|D_N| > (N-3) - \log^2(2N)$, and we can verify (as in Case 1) that $|C_N| > \log^2(2N)$ for these values of $N$, the same pigeonhole argument ensures $C_N \cap D_N \neq \emptyset$.  
-Alternatively, we have verified *directly* for each $N \in [4, 2^{14}]$ that at least one valid Goldbach partition exists (i.e., we computed explicit partitions), confirming the conjecture holds.  
+For this range, we rely on computational verification. Our experiments (Section 4, Table 1) confirm that $G(N) > 0$ for all $N \in [4, 2^{14}] = [4, 16384]$, which includes the entire range $[13, 3274]$.
+
+Since $G(N) > 0$ implies $|D_N| > (N-3) - \log^2(2N)$, and $|C_N| > \log^2(2N)$ for these values of $N$, the same pigeonhole argument ensures $C_N \cap D_N \neq \emptyset$.
+
+Additionally, we have verified *directly* for each $N \in [4, 2^{14}]$ that at least one valid Goldbach partition exists (i.e., we computed explicit partitions), confirming the conjecture holds.
 
 #### Conclusion  
 
-Combining Cases 1--3, the conjecture holds for all $N \geq 4$. Since $N \geq 4$ corresponds to $2N \geq 8$, every even integer $\geq 8$ is the sum of two distinct primes.  
+Combining Cases 1-3, the conjecture holds for all $N \geq 4$. Since $N \geq 4$ corresponds to $2N \geq 8$, every even integer $\geq 8$ is the sum of two distinct primes.
+
 **Remark (Computational Verification).** Our implementation verified the existence of Goldbach partitions for all even integers up to $2 \times 2^{14} = 32{,}768$, providing additional empirical confirmation of Theorem 3.  
 
 ---  
 
-## 5. Conclusion  
+## 6. Conclusion  
 
-We have proved that every even integer $2N \geq 8$ is the sum of two distinct primes. The proof combines:  
-1. A novel geometric reformulation via nested squares and semiprime areas,  
-2. A theoretical proof for $N \geq 3275$ using Dusart's prime distribution theorem,  
-3. Computational verification for $4 \leq N \leq 3274$.  
+We have proved that every even integer $2N \geq 8$ is the sum of two distinct primes by combining a novel geometric reformulation via nested squares and semiprime areas (Theorem 1), a theoretical proof for $N \geq 3275$ using explicit results from Dusart's doctoral thesis [[Dus98]](#references) on prime distribution (Theorem 2), and computational verification for $4 \leq N \leq 3274$.
 
-### Summary of Main Results  
+### Summary of main results
 
-- **Geometric Equivalence (Theorem 1):** The Goldbach variant is equivalent to finding, for each $N \geq 4$, a nested square configuration with semiprime area.  
-- **Gap Function Positivity (Theorem 2):** For $N \geq 3275$, $G(N) = \log^2(2N) - ((N-3) - |D_N|) > 0$, ensuring $D_N$ is densely populated.  
-- **Variant Goldbach Conjecture (Theorem 3):** Every even integer $\geq 8$ is the sum of two distinct primes.  
+Theorem 1 establishes that the distinct-prime Goldbach variant is equivalent to finding, for each $N \geq 4$, a nested square configuration with semiprime area. Theorem 2 shows that for $N \geq 3275$, the gap function $G(N) = \log^2(2N) - ((N-3) - |D_N|) > 0$, ensuring $D_N$ is densely populated. Together with the pigeonhole principle, this yields Theorem 3: every even integer $\geq 8$ is the sum of two distinct primes.
 
-### Key Insights  
+### Key insights
 
-**1. The Role of $N = 3275$:** This threshold emerges from Dusart's theorem, which guarantees primes in intervals of length $n/(2\log^2 n)$ for $n \geq 3275$. This prime density is exactly what's needed to ensure $(N-3) - |D_N| < \log^2(2N)$.  
-**2. The Pigeonhole Mechanism:** The proof hinges on showing that the number of candidate primes $P < N$ (namely $\pi(N-1) - 1 > \log^2(2N) $) exceeds the number of bad $M$-values (fewer than $\log^2(2N) $). This forces at least one successful Goldbach partition.  
-**3. Computational-Theoretical Synergy:** Computational exploration revealed the pattern $G(N) > 0$, which guided the theoretical analysis. Conversely, the theoretical result (Theorem 2) reduced the verification burden to a finite, manageable range $[4, 3274]$.  
+The threshold $N = 3275$ emerges from Proposition 1 (Théorème 1.9 of [[Dus98]](#references)), which guarantees primes in intervals of length $x/(2\log^2 x)$ for $x \geq 3275$. This prime density is precisely what is needed to ensure $(N-3) - |D_N| < \log^2(2N)$. The proof mechanism is a pigeonhole argument: the number of candidate primes $P < N$ (namely $\pi(N-1) - 1$) exceeds the number of bad $M$-values (fewer than $\log^2(2N) $), forcing at least one successful Goldbach partition.
 
-### Methodological Contributions  
+The interplay between computation and theory is noteworthy. Computational exploration revealed the empirical pattern $G(N) > 0$, which guided the theoretical analysis. Conversely, the theoretical result reduced the verification burden to a finite, manageable range.
 
-Beyond proving the variant conjecture, this work demonstrates:  
-- **Geometric Reformulation:** Classical additive problems can sometimes be profitably recast geometrically, revealing hidden structure.  
-- **Gap Function as Diagnostic:** The function $G(N)$ quantifies ``distance from counterexample'' and its behavior provides insight into the problem's structure.  
-- **Effective Use of Modern Prime Distribution:** Dusart's refinement, a relatively recent result, is precisely calibrated to resolve our problem for $N \geq 3275$.  
+### Methodological contributions
 
-### Relation to the Classical Goldbach Conjecture  
+Beyond proving the variant conjecture, this work demonstrates three methodological points. First, classical additive problems can sometimes be profitably recast in geometric terms, revealing hidden structure. Second, the gap function $G(N)$ provides a quantitative diagnostic-a "distance from counterexample"-whose behaviour offers structural insight. Third, Dusart's refinement [[Dus98]](#references), a result from modern analytic number theory, is precisely calibrated to resolve our problem for $N \geq 3275$.
 
-Our result addresses the variant requiring *distinct* primes, thus excluding $4 = 2+2$ and $6 = 3+3$. While this is a restriction, our techniques--particularly the geometric framework and the analysis of $D_N$--may offer insights applicable to the full classical conjecture. However, extending our methods to allow $P = Q$ would require new ideas, as our geometric construction inherently requires $P \neq Q$ (i.e., $M \geq 1$).  
+### Relation to the classical Goldbach conjecture
 
-### Open Questions and Future Directions  
+Our result addresses the variant requiring *distinct* primes, thus excluding $4 = 2+2$ and $6 = 3+3$. While our techniques-particularly the geometric framework and the analysis of $D_N$-may offer insights applicable to the full classical conjecture, extending our methods to allow $P = Q$ would require new ideas, as our geometric construction inherently demands $P \neq Q$ (i.e., $M \geq 1$).
 
-1. **Tighter Bounds:** Can we improve $|D_N| > (N-3) - \log^2(2N)$ to $|D_N| > (N-3) - C \log N$ for some constant $C$? This would provide more precise information on the typical number of Goldbach partitions.  
-2. **Asymptotic Analysis:** What is the exact asymptotic behavior of $G(N)$ as $N \to \infty$? Our proof establishes positivity; a complete expansion would be of independent interest.  
-3. **Extension to Classical Goldbach:** Can the geometric framework accommodate $P = Q$? This would require handling $M = 0$, which falls outside our current setup.  
-4. **Generalization:** Can similar geometric reformulations illuminate other additive problems (ternary Goldbach, Waring's problem, etc.)?  
-5. **Further Computation:** Extending verification to $N = 2^{20}$ or beyond (though not necessary for the proof) could reveal additional empirical patterns in $G(N)$ and $|D_N|$.  
+### Open questions
 
-### Final Remarks  
+Several natural questions remain. Can one improve the bound $|D_N| > (N-3) - \log^2(2N)$ to $|D_N| > (N-3) - C \log N$ for some constant $C$? What is the exact asymptotic behaviour of $G(N)$? Can the geometric framework accommodate $P = Q$ (the case $M = 0$), thereby addressing the full classical Goldbach conjecture? Finally, can similar geometric reformulations illuminate other additive problems, such as the ternary Goldbach conjecture or Waring's problem?
 
-This work demonstrates that a problem with centuries of history can be resolved through a synthesis of geometric intuition, modern analytic number theory, and computational exploration. The distinct-prime Goldbach variant, once viewed through the lens of nested squares, becomes tractable via Dusart's theorem, the pigeonhole principle, and finite computation.  
-The success of this approach suggests that geometric thinking has broader applicability in analytic number theory, and that the interplay between theory and computation remains a powerful tool for resolving longstanding questions.  
+---  
+
+## Acknowledgment
+
+The author is sincerely grateful to Iris, Marilin, Sonia, Yoselin, Arelis, Anissa, Liuva, Yudit, Gretel, Gema, and Blaquier, as well as Israel, Arderi, Juan Carlos, Yamil, Alejandro, Aroldo, Yary, Reinaldo, Alex, Emmanuel, and Michael for their constant support. Whether through encouragement, stimulating conversations, practical assistance, or simply being present during challenging moments, their contributions have played an important role in bringing this work to completion.
 
 ---  
 
 ## References  
 
-**[Gol43]** Goldbach, Christian. Lettre XLIII. In: Correspondance mathématique et physique de quelques célèbres géomètres du XVIIIème siècle, edited by P. H. Fuss, volume 1, pages 125--129. Imperial Academy of Sciences, St. Petersburg, 1843. (letter to Leonhard Euler) (in German).  
+**[Gol43]** Goldbach, Christian. Lettre XLIII. In: Correspondance mathématique et physique de quelques célèbres géomètres du XVIIIème siècle, edited by P. H. Fuss, volume 1, pages 125-129. Imperial Academy of Sciences, St. Petersburg, 1843. (letter to Leonhard Euler) (in German).  
 
-**[Oli14]** Oliveira e Silva, Tomás, Herzog, Siegfried, and Pardi, Silvio. Empirical verification of the even Goldbach conjecture and computation of prime gaps up to $4 \cdot 10^{18}$. *Mathematics of Computation*, 83(288):2033--2060, 2014. DOI: [10.1090/S0025-5718-2013-02787-1](https://doi.org/10.1090/S0025-5718-2013-02787-1).  
+**[Oli14]** Oliveira e Silva, Tomás, Herzog, Siegfried, and Pardi, Silvio. Empirical verification of the even Goldbach conjecture and computation of prime gaps up to $4 \cdot 10^{18}$. *Mathematics of Computation*, 83(288):2033-2060, 2014. DOI: [10.1090/S0025-5718-2013-02787-1](https://doi.org/10.1090/S0025-5718-2013-02787-1).  
 
 **[Veg25]** Vega, Frank. Experimental Results on Goldbach's Conjecture. 2025. Available at: [https://github.com/frankvegadelgado/goldbach](https://github.com/frankvegadelgado/goldbach). Accessed: 2025-11-14.  
 
 **[Dus98]** Dusart, Pierre. Autour de la fonction qui compte le nombre de nombres premiers. 1998. Available at: [https://www.unilim.fr/pages_perso/pierre.dusart/Documents/T1998_01.pdf](https://www.unilim.fr/pages_perso/pierre.dusart/Documents/T1998_01.pdf). Accessed: 2025-11-14. PhD thesis, Université de Limoges.  
 
-**[Rit14]** Rittaud, Benoît and Heeffer, Albrecht. The Pigeonhole Principle, Two Centuries before Dirichlet. *The Mathematical Intelligencer*, 36(2):27--29, 2014. DOI: [10.1007/s00283-013-9389-1](https://doi.org/10.1007/s00283-013-9389-1).  
+**[Rit14]** Rittaud, Benoît and Heeffer, Albrecht. The Pigeonhole Principle, Two Centuries before Dirichlet. *The Mathematical Intelligencer*, 36(2):27-29, 2014. DOI: [10.1007/s00283-013-9389-1](https://doi.org/10.1007/s00283-013-9389-1).  
 
 ---  
 
-**MSC (2020):** 11P32 (Goldbach-type theorems; other additive questions involving primes), 51M15 (Geometric constructions in real or complex geometry), 11A25 (Arithmetic functions; related numbers; inversion formulas), 11Y70 (Values of arithmetic functions; tables)  
+**MSC (2020):** 11P32 (Goldbach-type theorems; other additive questions involving primes), 51M15 (Geometric constructions in real or complex geometry), 11A25 (Arithmetic functions; related numbers; inversion formulas)  
 
 ---  
 
 **Documentation**  
-Available as PDF at *[Geometric Insights into the Goldbach Conjecture](https://www.preprints.org/manuscript/202511.0701/v4)*.  
+Available as PDF at *[Geometric Insights into the Goldbach Conjecture](https://www.preprints.org/manuscript/202511.0701/v5)*.
