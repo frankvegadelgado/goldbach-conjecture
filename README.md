@@ -172,7 +172,7 @@ $$
 
 ## 4. Computational Evidence
 
-We computed $|D_N|$, $|C_N|$, and $G(N)$ for all $N \in [4, 2^{14}]$ using Python 3.12 with the Gmpy2 library [[Veg25]](#references). The results are summarized in Table 1.
+We computed $|D_N|$, $|C_N|$, and $G(N)$ for all $N \in [4, 2^{14}]$ using Python 3.12 with the Gmpy2 library [[Veg26]](#references). The results are summarized in Table 1.
 
 | Interval ($m$) | Range $[2^m, 2^{m+1}]$ | $N$ achieving min | Min $G(N)$ |  
 |---------------|------------------------|-------------------|------------|  
@@ -363,7 +363,7 @@ The author is sincerely grateful to Iris, Marilin, Sonia, Yoselin, Arelis, Aniss
 
 **[Oli14]** Oliveira e Silva, Tomás, Herzog, Siegfried, and Pardi, Silvio. Empirical verification of the even Goldbach conjecture and computation of prime gaps up to $4 \cdot 10^{18}$. *Mathematics of Computation*, 83(288):2033-2060, 2014. DOI: [10.1090/S0025-5718-2013-02787-1](https://doi.org/10.1090/S0025-5718-2013-02787-1).  
 
-**[Veg25]** Vega, Frank. Experimental Results on Goldbach's Conjecture. 2026. Available at: [https://github.com/frankvegadelgado/goldbach](https://github.com/frankvegadelgado/goldbach). Accessed: 2026-04-11.  
+**[Veg26]** Vega, Frank. Experimental Results on Goldbach's Conjecture. 2026. Available at: [https://github.com/frankvegadelgado/goldbach](https://github.com/frankvegadelgado/goldbach). Accessed: 2026-04-11.  
 
 **[Dus98]** Dusart, Pierre. Autour de la fonction qui compte le nombre de nombres premiers. 1998. Available at: [https://www.unilim.fr/pages_perso/pierre.dusart/Documents/T1998_01.pdf](https://www.unilim.fr/pages_perso/pierre.dusart/Documents/T1998_01.pdf). Accessed: 2026-04-11. PhD thesis, Université de Limoges.  
 
