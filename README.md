@@ -376,4 +376,4 @@ The author is sincerely grateful to Iris, Marilin, Sonia, Yoselin, Arelis, Aniss
 ---  
 
 **Documentation**  
-Available as PDF at *[Geometric Insights into the Goldbach Conjecture](https://www.preprints.org/manuscript/202511.0701/v5)*.
+Available as PDF at *[Geometric Insights into the Goldbach Conjecture](https://www.preprints.org/manuscript/202511.0701/v6)*.
